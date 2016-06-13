@@ -32,3 +32,46 @@ print(fit_rpart, digits = 4)
 
 
 fancyRpartPlot(fit_rpart$finalModel)
+
+# predict outcomes using validation set
+predict_rpart <- predict(fit_rpart, valid)
+# Show prediction result
+(conf_rpart <- confusionMatrix(valid$classe, predict_rpart))
+
+
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1544   21  107    0    2
+##          B  492  391  256    0    0
+##          C  474   38  514    0    0
+##          D  436  175  353    0    0
+##          E  155  138  293    0  496
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.5004          
+##                  95% CI : (0.4876, 0.5133)
+##     No Information Rate : 0.5269          
+##     P-Value [Acc > NIR] : 1               
+##                                           
+##                   Kappa : 0.3464          
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            0.4979  0.51245  0.33749       NA  0.99598
+## Specificity            0.9533  0.85396  0.88262   0.8362  0.89122
+## Pos Pred Value         0.9223  0.34328  0.50097       NA  0.45841
+## Neg Pred Value         0.6303  0.92162  0.79234       NA  0.99958
+## Prevalence             0.5269  0.12965  0.25879   0.0000  0.08462
+## Detection Rate         0.2624  0.06644  0.08734   0.0000  0.08428
+## Detection Prevalence   0.2845  0.19354  0.17434   0.1638  0.18386
+## Balanced Accuracy      0.7256  0.68321  0.61006       NA  0.94360
+(accuracy_rpart <- conf_rpart$overall[1])
+##  Accuracy 
+## 0.5004248
+
+
