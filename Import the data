@@ -1,0 +1,13 @@
+# load the required packages
+library(caret); library(rattle); library(rpart); library(rpart.plot)
+library(randomForest); library(repmis)
+
+
+# import the data from the URLs
+# trainurl <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+# testurl <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+# training <- source_data(trainurl, na.strings = c("NA", "#DIV/0!", ""), header = TRUE)
+# testing <- source_data(testurl, na.strings = c("NA", "#DIV/0!", ""), header = TRUE)
+# load data locally
+training <- read.csv("pml-training.csv", na.strings = c("NA", ""))
+testing <- read.csv("pml-testing.csv", na.strings = c("NA", ""))
