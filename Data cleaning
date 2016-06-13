@@ -1,0 +1,5 @@
+training <- training[, colSums(is.na(training)) == 0]
+testing <- testing[, colSums(is.na(testing)) == 0]
+
+trainData <- training[, -c(1:7)]
+testData <- testing[, -c(1:7)]
