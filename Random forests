@@ -1,0 +1,61 @@
+fit_rf <- train(classe ~ ., data = train, method = "rf", 
+                   trControl = control)
+print(fit_rf, digits = 4)
+## Random Forest 
+## 
+## 13737 samples
+##    52 predictor
+##     5 classes: 'A', 'B', 'C', 'D', 'E' 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold) 
+## 
+## Summary of sample sizes: 10991, 10988, 10989, 10990, 10990 
+## 
+## Resampling results across tuning parameters:
+## 
+##   mtry  Accuracy  Kappa   Accuracy SD  Kappa SD
+##    2    0.9892    0.9864  0.004201     0.005316
+##   27    0.9902    0.9877  0.003486     0.004411
+##   52    0.9854    0.9816  0.002664     0.003370
+## 
+## Accuracy was used to select the optimal model using  the largest value.
+## The final value used for the model was mtry = 27.
+# predict outcomes using validation set
+predict_rf <- predict(fit_rf, valid)
+# Show prediction result
+(conf_rf <- confusionMatrix(valid$classe, predict_rf))
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1669    3    0    0    2
+##          B    8 1129    2    0    0
+##          C    0    2 1017    7    0
+##          D    0    1   16  945    2
+##          E    0    3    1    5 1073
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9912          
+##                  95% CI : (0.9884, 0.9934)
+##     No Information Rate : 0.285           
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9888          
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            0.9952   0.9921   0.9817   0.9875   0.9963
+## Specificity            0.9988   0.9979   0.9981   0.9961   0.9981
+## Pos Pred Value         0.9970   0.9912   0.9912   0.9803   0.9917
+## Neg Pred Value         0.9981   0.9981   0.9961   0.9976   0.9992
+## Prevalence             0.2850   0.1934   0.1760   0.1626   0.1830
+## Detection Rate         0.2836   0.1918   0.1728   0.1606   0.1823
+## Detection Prevalence   0.2845   0.1935   0.1743   0.1638   0.1839
+## Balanced Accuracy      0.9970   0.9950   0.9899   0.9918   0.9972
+(accuracy_rf <- conf_rf$overall[1])
+## Accuracy 
+## 0.991164
